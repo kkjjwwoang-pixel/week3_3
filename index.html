@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>그게 너의 사랑인지 몰랐어</title>
+
+<style>
+  body
+  {
+  	user-select: none;
+  	background: url('background.png') no-repeat center center fixed;
+  background-size: cover;}
+  @font-face{
+    font-family: 'AritaBuri';
+    src: url('AritaBuriKR-SemiBold.ttf') format('truetype');
+  }
+  h1{
+    color: #ffffff; 
+    font-family: "AritaBuri"; 
+    text-align: center;
+    font-size: 300px;
+    padding-bottom: 800px;
+  }
+  .instBtn {
+    font-size: 100px;
+    display: inline-block;
+    margin-right: 250px;
+    margin-left: 250px;
+    margin-bottom: 100px;
+    vertical-align: middle;
+    font-family: "AritaBuri", serif;
+    cursor: pointer;
+  }
+  img {
+    filter: brightness(0) grayscale(100%);
+    padding-left: 200px;
+    padding-right: 200px;
+    padding-top: 30px;
+    transition: all 0.3s ease;
+  }
+  h2 {
+    color: #ffffff;
+    font-family: "AritaBuri";
+    font-size: 80px;
+    margin-top: -900px;
+    margin-bottom: 800px;
+    margin-left: 1200px;
+  }
+  h3 {
+    color: #ffffff;
+    font-family: "AritaBuri";
+    text-align: center;
+    font-size: 60px;
+    margin-top: -200px;
+    margin-bottom: 100px;
+  }
+    .instBtn.active {
+    color: #fff176;
+    transition: all 0.3s ease;
+  }
+</style>
+
+</head>
+
+<body>
+  <h1>그게 너의 사랑인지 몰랐어</h1>
+  <h2>DAY6<br>작곡 성진, Young K, 원필<br>작사 Young K</h2>
+  <h3>텍스트를 클릭해서 악기를 쌓아보세요</h3>
+
+  <audio id="bassSnd" src="bass.mp3" preload="auto"></audio>
+  <audio id="drumsSnd" src="drums.mp3" preload="auto"></audio>
+  <audio id="pianoSnd" src="piano.mp3" preload="auto"></audio>
+  <audio id="vocalSnd" src="vocal.mp3" preload="auto"></audio>
+
+  <div style="text-align:center;">
+    <span class="instBtn" data-key="bass">베이스</span> 
+    <span class="instBtn" data-key="piano">피아노</span>
+    <span class="instBtn" data-key="drums">드럼</span>
+    <span class="instBtn" data-key="vocal">보컬</span>
+  </div>
+
+  <div style="text-align:center;">
+    <img id="bassbut" src="bassOn.png" style="width:900px; height:auto;">
+    <img id="pianobut" src="pianoOn.png" style="width:900px; height:auto;">
+    <img id="drumsbut" src="drumsOn.png" style="width:1700px; height:auto;">
+    <img id="vocalbut" src="vocalOn.png" style="width:900px; height:auto;">
+  </div>
+
+<script>
+var bassSnd = document.getElementById("bassSnd")
+var bassBut = document.getElementById("bassbut")
+var bassText = document.querySelector("span[data-key='bass']")
+bassSnd.loop=true
+bassSnd.muted=true
+bassBut.style.filter="grayscale(100%) brightness(0)"
+var bassMuted=true
+
+// 피아노
+let pianoSnd=document.getElementById("pianoSnd");
+let pianoBut=document.getElementById("pianobut")
+let pianoText=document.querySelector("span[data-key='piano']")
+pianoSnd.loop=true;
+pianoSnd.muted=true
+pianoBut.style.filter="grayscale(100%) brightness(0)"
+let pianoMuted=true;
+
+// 드럼
+const drumsSnd=document.getElementById("drumsSnd")
+const drumsBut=document.getElementById("drumsbut");
+const drumsText=document.querySelector("span[data-key='drums']")
+drumsSnd.loop=true
+drumsSnd.muted=true;
+drumsBut.style.filter="grayscale(100%) brightness(0)"
+var drumsMuted=true
+
+// 보컬
+var vocalSnd=document.getElementById("vocalSnd")
+const vocalBut=document.getElementById("vocalbut")
+let vocalText=document.querySelector("span[data-key='vocal']")
+vocalSnd.loop=true
+vocalSnd.muted=true
+vocalBut.style.filter="grayscale(100%) brightness(0)"
+let vocalMuted=true
+
+// 시작여부
+let started=false
+function startAll(){
+    if(started==false){
+        bassSnd.currentTime=0
+        bassSnd.play()
+        pianoSnd.currentTime=0; pianoSnd.play()
+        drumsSnd.currentTime=0
+        drumsSnd.play();
+        vocalSnd.currentTime=0;vocalSnd.play()
+        started=true
+    }
+}
+
+bassText.onclick = function(){
+  startAll();
+  if(bassMuted){
+    bassSnd.muted = false;
+    bassBut.style.filter = "grayscale(0%)";
+    bassMuted = false;
+     bassText.classList.add("active")
+  }else{
+    bassSnd.muted = true;
+    bassBut.style.filter = "grayscale(100%) brightness(0)";
+    bassMuted = true;
+    bassText.classList.remove("active")
+  }
+}
+
+pianoText.onclick = function(){
+  startAll();
+  if(pianoMuted){
+    pianoSnd.muted = false;
+    pianoBut.style.filter = "grayscale(0%)";
+    pianoMuted = false;
+    pianoText.classList.add("active")
+  }else{
+    pianoSnd.muted = true;
+    pianoBut.style.filter = "grayscale(100%) brightness(0)";
+    pianoMuted = true;
+    pianoText.classList.remove("active")
+  }
+}
+
+drumsText.onclick = function(){
+  startAll();
+  if(drumsMuted){
+    drumsSnd.muted = false;
+    drumsBut.style.filter = "grayscale(0%)";
+    drumsMuted = false;
+    drumsText.classList.add("active")
+  }else{
+    drumsSnd.muted = true;
+    drumsBut.style.filter = "grayscale(100%) brightness(0)";
+    drumsMuted = true;
+    drumsText.classList.remove("active")
+  }
+}
+
+vocalText.onclick = function(){
+  startAll();
+  if(vocalMuted){
+    vocalSnd.muted = false;
+    vocalBut.style.filter = "grayscale(0%)";
+    vocalMuted = false;
+    vocalText.classList.add("active")
+  }else{
+    vocalSnd.muted = true;
+    vocalBut.style.filter = "grayscale(100%) brightness(0)";
+    vocalMuted = true;
+    vocalText.classList.remove("active")
+  }
+}
+
+window.addEventListener("load", function() {
+  if (!sessionStorage.getItem("reloaded")) {
+    sessionStorage.setItem("reloaded", "true");
+    setTimeout(()=>location.reload(), 100);
+  }
+});
+</script>
+</body>
+</html>
